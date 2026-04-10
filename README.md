@@ -222,3 +222,34 @@ NB: All weighted magnitudes are weighted by the value of the energy deposition.
 Analysis example
 ---------------
 An basic example on how to analyze the output of the simulation can be found in a Jupyter Notebook under the Analysis folder.
+
+MacOS Edits for Apple Silicon
+-----------------------------
+First, we need to fix some issues that arise with using the an Apple Silicon.
+
+Considering the gcc-12 and g++-12 installations we need to change the paths in the setup.sh
+
+export CC=/opt/homebrew/bin/gcc-12
+export CXX=/opt/homebrew/bin/g++-12
+
+Then we need to bypass some issues that arise with the gcc-12 and g++-12 and the SDK:
+
+These also go in the seup.sh:
+
+export SDKROOT=$(xcrun --sdk macosx --show-sdk-path)
+export LIBRARY_PATH="$LIBRARY_PATH:$SDKROOT/usr/lib"
+export CFLAGS="-isysroot $SDKROOT"
+export CXXFLAGS="-isysroot $SDKROOT"
+
+In CMakeLists.txt line 1 we need to fix the minimum cmake version error such as:
+
+cmake_minimum_required(VERSION 4.3.1)
+
+And also we need to add on the last target_link_libraries as (OpticalSimulation SemiLib nlohmann_json::nlohmann_json)
+
+Finally,  gcc-12 ships a broken include-fixed/stdio.h that conflicts with macOS Sequoia/Xcode 16. Delete it by running:
+
+
+sudo mv /opt/homebrew/Cellar/gcc@12/12.5.0/lib/gcc/12/gcc/aarch64-apple-darwin23/12/include-fixed/stdio.h \
+        /opt/homebrew/Cellar/gcc@12/12.5.0/lib/gcc/12/gcc/aarch64-apple-darwin23/12/include-fixed/stdio.h.bak
+

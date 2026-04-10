@@ -1,0 +1,31 @@
+# Ignore the entire build directory
+build/
+bin/
+
+# Specific CMake files if you accidentally build in-source
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+*.cmake
+# Simulation data outputs
+*.root       # Data files if using ROOT analysis
+*.csv        # Standard data exports
+*.txt        # Often used for simple hit logs (e.g., exampleB1.out)
+*.xml        # GDML or other configuration outputs
+
+# Visualization and Log files
+*.log        # Execution logs
+*.eps        # PostScript visualization files
+*.png        # Event display screenshots
+*.wrl        # VRML visualization files
+
+# OS-specific
+.DS_Store    # macOS
+Thumbs.db    # Windows
+
+# IDEs
+.vscode/     # VS Code settings
+.idea/       # JetBrains (CLion)
+*.swp        # Vim swap files
+
