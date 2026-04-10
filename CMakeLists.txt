@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.0 FATAL_ERROR)
+cmake_minimum_required(VERSION 4.3.1)
 
 project(Semi)
 
@@ -18,4 +18,5 @@ target_link_libraries(SemiLib PRIVATE nlohmann_json::nlohmann_json)
 # Create the main program using the library.
    
 add_executable(OpticalSimulation main.cc PropagationTimeModel.cc SemiAnalyticalModel.cc)
-target_link_libraries(OpticalSimulation SemiLib)
+target_link_libraries(OpticalSimulation SemiLib nlohmann_json::nlohmann_json)
+
